@@ -1,0 +1,31 @@
+<%- include('header') %>
+
+<div class="card">
+    <div class="card-body text-center">
+        <h2 class="card-title mb-4">Set Up Two-Factor Authentication (2FA)</h2>
+        
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <p>1. Scan the QR code below using an authenticator app (like Google Authenticator or Authy).</p>
+        
+        <% if (qrImage) { %>
+            <img src="<%= qrImage %>" alt="QR Code" class="img-fluid mb-3 p-3 border rounded">
+        <% } %>
+
+        <p>Alternatively, enter this secret manually: <strong><%= secret %></strong></p>
+
+        <p class="mt-3">2. Enter the 6-digit code from your app to verify and enable 2FA.</p>
+
+        <form action="/setup-2fa" method="POST" class="mt-3">
+            <div class="mb-3 w-50 mx-auto">
+                <input type="text" class="form-control text-center fs-4" name="token" placeholder="000000" required maxlength="6" pattern="\d{6}">
+            </div>
+            <button type="submit" class="btn btn-success">Verify and Enable</button>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<%- include('footer') %>
